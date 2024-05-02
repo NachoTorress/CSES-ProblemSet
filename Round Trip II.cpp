@@ -18,8 +18,6 @@ void dfs(ll n){
 	processed[n]=1;
 	for (auto i:ady[n]){
 		if (processed[i]==1 && !seEncontro){
-			//cout<<"NODO DESDE SE ENCONTRO: "<<n<<endl;
-			//cout<<"nodo a donde voy: "<<i<<endl;
 			seEncontro=true;
 			camino.PB(i);
 			inicio=indice[i];
