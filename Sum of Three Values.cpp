@@ -1,37 +1,40 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define ll long long
 int main(){
-	int n, x; cin>>n>>x;
-	map <int, vector <int>> nums;
-	int aux, pos1=0, pos2=0, pos3=0;
-	for (int i=1;i<=n;i++){
-		cin>>aux;	
-		bool terminado=false;
-		for (auto j:nums){
-			int aBuscar=x-aux-j.first;
-			if (aBuscar>0){
-				if (aBuscar!=j.first){
-					if (nums[aBuscar].size()!=0){
-						if (!terminado){
-						
-						pos1=i, pos2=j.second[0], pos3=nums[aBuscar][0];
-						terminado=true;
-						}
-					}
-				}
-				else {
-					if (j.second.size()>1){
-						if (!terminado){
-						
-						pos1=i, pos2=j.second[0], pos3=j.second[1];
-						terminado=true;
-					}
-				}
-			}
+	ll n, obj; cin>>n>>obj;
+	vector <pair<ll,ll>> nums (n);
+	
+	for (int i=0;i<n;i++){
+		ll aux; cin>>aux; 
+		nums[i]={aux,i+1};
+	}
+	sort (nums.begin(), nums.end());
+	ll i=0,j=1,k=n-1;
+	if (n<3){
+		cout<<"IMPOSSIBLE";
+		return 0;
+	}
+	if (n==3){
+		if (nums[0].first+nums[1].first+nums[2].first==obj){
+			cout<<nums[0].second<<" "<<nums[1].second<<" "<<nums[2].second;
+			return 0;
 		}
+		cout<<"IMPOSSIBLE";
+		return 0;
+		}
+	
+	for (i=0;i<n;i++){
+		ll x2=obj-nums[i].first;
+		for (int j=i+1,k=n-1;j<k;j++) 
+		{
+		while (nums[j].first+nums[k].first>x2 ) k--;
+		if (nums[i].first+nums[j].first+nums[k].first==obj){
+				cout<<nums[i].second<<" "<<nums[j].second<<" "<<nums[k].second;
+				return 0;
+				}
 	}
-		nums[aux].push_back(i);
-	}
-	//if (pos1!=pos2 && pos1!=pos3 && pos2!=pos3 && pos1!=0) cout<<pos1<<" "<<pos2<<" "<<pos3;
-	 cout<<"IMPOSSIBLE";
+}
+	cout <<"IMPOSSIBLE";
+	return 0;
 }
