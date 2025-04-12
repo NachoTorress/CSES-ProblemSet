@@ -1,26 +1,19 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define ll long long
 int main(){
-	int n; cin>>n;
-	vector <int> coins(n);
-	for (auto &i:coins) cin>>i;
-	map<int, int> mapa, mapAux;
-	mapa[0]++; mapAux[0]++;
-	mapa[coins[0]]++; mapAux[coins[0]]++;
-	for (int i=1;i<n;i++){
-		for (auto j:mapa){
-			mapAux[j.first+coins[i]]++;
-			
-		}
-		mapa=mapAux;
+	ll n; cin>>n;
+	for (int i=1;i<=n;i++){
+		cin>>nums[i];
 	}
-	int i=1;
-	while (true){
-		//cout<<"a"<<endl;
-		if (mapa[i]==0) {
-			cout<<i;
+	sort (nums.begin(), nums.end());
+	ll num=1; 
+	for (int i=1;i<=n;i++){
+		if (nums[i]>num){
+			cout<<num;
 			return 0;
 		}
-		i++;
+		else num+=nums[i];
 	}
+	cout<<num<<endl;
 }
