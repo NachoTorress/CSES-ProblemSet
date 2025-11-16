@@ -23,14 +23,8 @@ int main(){
 		else if (dp[i][j-1]>dp[i-1][j]) j--;
 		else i--;
 	}
-	/*cout<<" DP: "<<endl;
-	for (auto i:dp){
-		for (auto j:i){
-			cout<<j<<" ";
-		}
-		cout<<endl;
-	}*/
 	reverse (res.begin(), res.end());
 	cout<<res.size()<<endl;
 	for (auto i:res) cout<<i<<" ";
 }
+
