@@ -1,49 +1,29 @@
 #include <bits/stdc++.h>
-#define INF 1e18
-using namespace std;
-vector <vector <pair <long long, long long>>> ady;
-void construir (){
-	long long a, b, c;
-	cin>>a>>b>>c;
-	ady[a].push_back({b,c});
-	ady[b].push_back({a,c});
-}
- long long dijkstra (long long x, long long y,  long long n){
-	vector <bool> processed (n+1, false);
-	vector <long long> distance (n+1, INF);
-	priority_queue <pair <long long, long long>> pq;
-	distance[x]=0;
-	pq.push({0, x});
-	while (!pq.empty()){
-		if (processed[y]) break;
-		long long nodo=pq.top().second;
-		pq.pop();
-		if (processed[nodo]) continue;
-		processed[nodo]=true;
-		for (auto u : ady[nodo]){
-			int vecino=u.first, costo=u.second;
-			if (distance[nodo]+costo<distance[vecino]){
-				distance[vecino]=distance[nodo]+costo;
-				pq.push({-distance[vecino], vecino});
+using namespace std; 
+#define ll long long
+#define ff first
+#define sc second 
+ll INF=1e16;
+vector <vector <ll>> ady;
+int main(){
+	ll n,m,q; cin>>n>>m>>q;
+	ady.resize(n+1, vector <ll>(n+1,INF));
+	for (int i=0;i<m;i++){
+		ll a,b,c; cin>>a>>b>>c;
+		if (c<ady[a][b]) ady[a][b]=c, ady[b][a]=c;
+	}
+	
+	for (int i=1;i<=n;i++){
+		for (int j=1;j<=n;j++){
+			for (int k=1;k<=n;k++){
+				if (i==j || i==k ) continue;
+				if (j==k){ ady[j][k]=ady[k][j]=0; break;}
+				ady[j][k]=ady[k][j]=min(ady[j][k], ady[j][i]+ady[i][k]);
 			}
 		}
 	}
-	
-	if (distance[y]<INF)return distance[y];
-	return -1;
-}
-int main(){
-	long long n, m,q;
-	cin>>n>>m>>q;
-	ady.resize(n+1);
-	while (m--){
-		construir();
+	while (q--){
+		ll a,b; cin>>a>>b;
+		cout<<(ady[a][b]!=INF ? ady[a][b]:-1)<<endl;
 	}
-	//vector <long long > distancias = dijkstra(1, n);
-	for (long long i=0;i<q;i++) {
-	int x, y;
-	cin>>x>>y;	
-	cout<<dijkstra(x,y,n);
-	cout<<endl;
-}
 }
